@@ -15,7 +15,8 @@ dotenv.config();
             password: process.env.MYSQL_PASSWORD,
             database: process.env.MYSQL_DB_NAME,
             entities: [__dirname + '/../**/*.entity.ts'],
-            synchronize: true
+            synchronize: true,
+            autoLoadEntities: true,
         })
     ],
 })
