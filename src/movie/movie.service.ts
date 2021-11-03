@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Movies } from './movie.entity';
+import { Movies } from './entities/movie.entity';
+import { Tickets } from './entities/ticket.entity';
 import { createMovieDto } from './dto/movie.dto';
 
 @Injectable()
@@ -9,6 +10,9 @@ export class MovieService {
   constructor(
     @InjectRepository(Movies)
     private movieRepository: Repository<Movies>,
+    
+    @InjectRepository(Tickets)
+    private ticketRepository: Repository<Tickets>,
   ) {}
 
   async findAll() {

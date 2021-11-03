@@ -20,7 +20,7 @@ import {
     }
   
     @Post('/add')
-    async createmovie(@Body() movie: createMovieDto) {
+    async createMovie(@Body() movie: createMovieDto) {
       return this.movieService.createMovie(movie);
     }
   }
