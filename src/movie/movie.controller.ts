@@ -8,6 +8,7 @@ import {
     Put,
   } from '@nestjs/common';
   import { createMovieDto } from './dto/movie.dto';
+  import { createTicketDto } from './dto/ticket.dto';
   import { MovieService } from './movie.service';
   
   @Controller('movie')
@@ -22,6 +23,11 @@ import {
     @Post('/add')
     async createMovie(@Body() movie: createMovieDto) {
       return this.movieService.createMovie(movie);
+    }
+
+    @Post('/ticket')
+    async createTicket(@Body() ticket: createTicketDto) {
+      return this.movieService.createTicket(ticket);
     }
   }
   
