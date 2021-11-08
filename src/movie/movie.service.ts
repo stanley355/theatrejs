@@ -26,22 +26,18 @@ export class MovieService {
     return savedNewMovie;
   }
 
-  async checkMovieExist(title) {
-    const movieList = await this.movieRepository.find();
-    for (let i = 0; i < movieList.length; i++) {
-      (await movieList[i].movie_title) === title;
-      return movieList[i];
-    }
-  }
-
   async createTicket(ticket: createTicketDto) {
-    const availableMovie = await this.checkMovieExist(ticket.movie_title);
+    const availableMovie = await this.movieRepository.findOne({movie_title : ticket.movie_title});
     if (!availableMovie) return "Movie doesn't exist";
 
-    const seatIsAvailable = (await availableMovie.movie_seats) > 0;
-    if (!seatIsAvailable) return "Seat isn't available";
+    const availableSeats = (await availableMovie.movie_seats) > 0;
+    if (!availableSeats) return "Seat isn't available";
 
-    // if (seatIsAvailable)
+    const updateMovieSeats = await this.movieRepository.update(
+      { movie_title: ticket.movie_title },
+      { movie_seats: Number(availableMovie.movie_seats) - Number(ticket.number_of_tickets) },
+    );
+
     return ticket;
   }
 }
